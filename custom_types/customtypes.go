@@ -6,27 +6,40 @@ type Player struct {
 	name         string
 	position     string
 	jerseyNumber int
+	hoby         string
+	club         string
 }
 
-func main() {
-	Amad := Player{
-		name:         "Amad",
-		position:     "Winger",
-		jerseyNumber: 7,
-	}
+var players map[int]Player
 
-	players := map[int]Player{
-		Amad.jerseyNumber: {
+func main() {
+	var userinput int
+
+	players = map[int]Player{
+		7: {
 			name:         "Amad",
 			position:     "Winger",
 			jerseyNumber: 7,
+			hoby:         "Dribbling players",
+			club:         " Red Devils",
 		},
 	}
-	getPlayerDetails(players[Amad.jerseyNumber])
+	players = map[int]Player{
+		10: {
+			name:         "Jackson",
+			position:     "Striker",
+			jerseyNumber: 9,
+			hoby:         "Missing empty post",
+			club:         "The blues",
+		},
+	}
+	fmt.Printf("Enter Player number to get the player details>>")
+	fmt.Scanln(&userinput)
+	getPlayerDetails(userinput)
 
 }
 
-func getPlayerDetails(player Player) {
+func getPlayerDetails(key int) {
 
-	fmt.Printf("%+v\n", player)
+	fmt.Printf("%+v\n", players[key])
 }
