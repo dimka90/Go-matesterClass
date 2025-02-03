@@ -23,8 +23,7 @@ func main() {
 			hoby:         "Dribbling players",
 			club:         " Red Devils",
 		},
-	}
-	players = map[int]Player{
+
 		10: {
 			name:         "Jackson",
 			position:     "Striker",
@@ -33,6 +32,7 @@ func main() {
 			club:         "The blues",
 		},
 	}
+
 	fmt.Printf("Enter Player number to get the player details>>")
 	fmt.Scanln(&userinput)
 	getPlayerDetails(userinput)
@@ -40,6 +40,9 @@ func main() {
 }
 
 func getPlayerDetails(key int) {
-
+	if players[key].jerseyNumber == 0 {
+		fmt.Println("Player does not exist")
+		return
+	}
 	fmt.Printf("%+v\n", players[key])
 }
