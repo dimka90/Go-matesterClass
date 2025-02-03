@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Player struct {
 	name         string
@@ -8,6 +10,16 @@ type Player struct {
 	jerseyNumber int
 	hoby         string
 	club         string
+}
+
+func (player Player) getPlayerDetails(key int) {
+	player, exists := players[key]
+
+	if !exists {
+		fmt.Println("Player does not exist")
+		return
+	}
+	fmt.Printf("%+v\n", player)
 }
 
 var players map[int]Player
@@ -35,16 +47,24 @@ func main() {
 
 	fmt.Printf("Enter Player number to get the player details>>")
 	fmt.Scanln(&userinput)
-	getPlayerDetails(userinput)
+	// getPlayerDetails(userinput)
 
-}
-
-func getPlayerDetails(key int) {
-	players, exists := players[key]
-
-	if !exists {
-		fmt.Println("Player does not exist")
-		return
+	player := Player{
+		name:         "Jackson",
+		position:     "Striker",
+		jerseyNumber: 9,
+		hoby:         "Missing empty post",
+		club:         "The blues",
 	}
-	fmt.Printf("%+v\n", players)
+	player.getPlayerDetails(userinput)
 }
+
+// func getPlayerDetails(key int) {
+// 	players, exists := players[key]
+
+// 	if !exists {
+// 		fmt.Println("Player does not exist")
+// 		return
+// 	}
+// 	fmt.Printf("%+v\n", players)
+// }
