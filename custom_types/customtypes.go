@@ -40,9 +40,11 @@ func main() {
 }
 
 func getPlayerDetails(key int) {
-	if players[key].jerseyNumber == 0 {
+	players, exists := players[key]
+
+	if !exists {
 		fmt.Println("Player does not exist")
 		return
 	}
-	fmt.Printf("%+v\n", players[key])
+	fmt.Printf("%+v\n", players)
 }
