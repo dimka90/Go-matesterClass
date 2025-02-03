@@ -27,7 +27,12 @@ func main() {
 		fmt.Println(num2 - num1)
 	case "*":
 		fmt.Println(num1 * num2)
-
+	case "/":
+		if num2 != 0 {
+			fmt.Println(num1 / num1)
+		} else {
+			fmt.Println("Error: Divsion by zero")
+		}
 	default:
 		fmt.Println("Invalid operator")
 
