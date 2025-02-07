@@ -4,6 +4,35 @@ import (
 	"fmt"
 )
 
+type Command int
+
+const (
+	ADDPLAYER Command = iota
+	GETPLAYERDETAILS
+	GETALLPLAYERDETAILS
+	DELETEPLAYER
+)
+
+func handleUserInput(keyBoardInput Command, player *Player) {
+
+	switch keyBoardInput {
+	case ADDPLAYER:
+		player.addPlayer()
+	case GETPLAYERDETAILS:
+		fmt.Println("Enter Player Id")
+		playerId, _ := fmt.Scanln(&playerId)
+		player.getPlayerDetails(playerId)
+	case GETALLPLAYERDETAILS:
+		player.getallPlayerDetails()
+	case DELETEPLAYER:
+		fmt.Println("Enter Player Id to Delete")
+		playerId, _ := fmt.Scanln(&playerId)
+		player.deletePlayer(playerId)
+	default:
+		fmt.Printf("Invalid command")
+	}
+}
+
 type Player struct {
 	name         string
 	position     string
@@ -61,7 +90,7 @@ func getPlayerDetails(key int) {
 
 func main() {
 
-	var userinput int
+	var userinput Command
 	player1 := Player{
 		name:         "Amad",
 		position:     "Winger",
@@ -69,18 +98,12 @@ func main() {
 		hoby:         "Dribbling players",
 		club:         " Red Devils",
 	}
-	player2 := Player{
-		name:         "Rashford",
-		position:     "Winger",
-		jerseyNumber: 10,
-		hoby:         "Laziness in the field",
-		club:         " Red Devils",
-	}
-	player1.addPlayer()
-	player2.addPlayer()
 
-	fmt.Printf("Enter Player number to get the player details>>")
-	fmt.Scanln(&userinput)
-	getPlayerDetails(userinput)
-	// }
+	for {
+
+		fmt.Printf("Choose command\n 0.create a user\n 1. Get Player Detaisl \n 2. Get all Players \n 3. Delete a Player>>\n ")
+		fmt.Scanln(&userinput)
+		handleUserInput(userinput, &player1)
+	}
+
 }
