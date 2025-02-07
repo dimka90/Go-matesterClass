@@ -1,8 +1,11 @@
 package main
 
 import "github.com/dimka90/generic/types"
+import "github.com/dimka90/generic/mockUser"
 
 func main() {
-	name := 40.999
-	types.Printer(name)
+	mockuser.Student.CreateId()
+	mockuser.Student2.CreateId()
+	types.Printer(mockuser.Student)
+	types.Printer(mockuser.Student2)
 }
