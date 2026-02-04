@@ -40,3 +40,10 @@ return nil
 func (p *PrepaidMeter) GetCustomerName()  string{
 return p.CustomerName
 }
+
+func (p *PrepaidMeter) CalculateCost(amount float64) (float64, error){
+if amount <=  0{
+return 0, fmt.Errorf("amount must be greater than zero")
+}
+return amount / p.Tariff, nil 
+}
