@@ -10,4 +10,5 @@ type Meter interface {
     GetBalance() float64
     AddUnits(units float64) error
     GetCustomerName() string
+    CalculateUnits(amount float64) float64
 }
