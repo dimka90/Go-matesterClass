@@ -58,11 +58,12 @@ func (p *PostpaidMeter) PayBill(amount float64) (float64, error) {
 	return p.DebtAmount, nil
 }
 
-
-
-func (p *PostpaidMeter) CalculateCost(amount float64) (float64, error){
-if amount <=  0{
-return 0, fmt.Errorf("amount must be greater than zero")
+func (p *PostpaidMeter) CalculateCost(amount float64) (float64, error) {
+	if amount <= 0 {
+		return 0, fmt.Errorf("amount must be greater than zero")
+	}
+	return amount / p.Tariff, nil
 }
-return amount / p.Tariff, nil 
+func (p *PostpaidMeter) GetCustomerAdress() string {
+	return p.Address
 }
