@@ -69,7 +69,20 @@ func NewTransaction(meter Meter, amount float64, paymentMethod string) (*Transac
 }
 
 func (t *Transaction) String() string {
-	return fmt.Sprintf("[%s] - [%s] -[%s]\n [%s] - [%s] -[%s]\n [%s] - [%s] -[%s]\n",
-		t.TransactionNo, t.MeterNumber, t.CustomerName, t.CustomerName, t.Amount,
-		t.UnitsPurchased, t.Token, t.PaymentMethod, t.TransactionDate, t.Status)
+	return fmt.Sprintf("[%s] - [%s] -[%s]\n [%f] - [%f] -[%s]\n [%s] - [%s] -[%v] -[%s]\n",
+		t.TransactionNo, t.MeterNumber, t.CustomerName, t.Amount,
+		t.UnitsPurchased, t.Token, t.PaymentMethod, t.TransactionDate, t.Status, t.Address)
+}
+
+func (ts TransactionStatus) String() string {
+	switch ts {
+	case Successfull:
+		return "Successfull"
+	case Failed:
+		return "Failed"
+	case Pending:
+		return " Pending"
+	default:
+		return "Unknown"
+	}
 }
