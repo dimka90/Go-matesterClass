@@ -69,7 +69,7 @@ func (b *BillingSystem) SaveTransactionsToFile(filename string) error {
 func GenerateReceipt(transaction *Transaction) {
 	fmt.Println(" Dimka electricity company")
 	fmt.Println(" Transaction Details")
-	fmt.Println("[%s]", transaction.Status)
+	fmt.Printf("[%v]", transaction.Status)
 	fmt.Println("Token              [%s]", transaction.Token)
 	fmt.Println("Meter Type         [%s]", transaction.MeterType)
 	fmt.Println("Address            [%s]", transaction.Address)
@@ -77,5 +77,5 @@ func GenerateReceipt(transaction *Transaction) {
 	fmt.Println("Customenr Name     [%s]", transaction.CustomerName)
 	fmt.Println("Uints Purchased    [%s]", transaction.UnitsPurchased)
 	fmt.Println("Uints  Amount      [%s]", transaction.Amount)
-	fmt.Println("Transaction Date    [%s]", time.Now().Unix())
+	fmt.Println("Transaction Date   [%s]", time.Now().Unix())
 }
