@@ -52,26 +52,56 @@ func GenerateToken() string {
 	return token
 }
 func NewTransaction(meter Meter, amount float64, paymentMethod string) (*Transaction, error) {
-
+	amountToUint, err := meter.CalculateUnits(amount)
+	if err != nil {
+		return &Transaction{}, err
+	}
 	return &Transaction{
 		TransactionNo:   generateTransactionNo(),
 		MeterNumber:     meter.GetMeterNumber(),
 		CustomerName:    meter.GetCustomerName(),
 		Amount:          amount,
-		UnitsPurchased:  meter.CalculateUnits(amount),
+		UnitsPurchased:  amountToUint,
 		Token:           GenerateToken(),
 		PaymentMethod:   paymentMethod,
 		TransactionDate: time.Now(),
 		Status:          Pending,
 		MeterType:       meter.GetMeterType(),
-		Address:         meter.GetCustomerAdress(),
+		Address:         meter.GetCustomerAddress(),
 	}, nil
 }
 
 func (t *Transaction) String() string {
-	return fmt.Sprintf("[%s] - [%s] -[%s]\n [%f] - [%f] -[%s]\n [%s] - [%s] -[%v] -[%s]\n",
-		t.TransactionNo, t.MeterNumber, t.CustomerName, t.Amount,
-		t.UnitsPurchased, t.Token, t.PaymentMethod, t.TransactionDate, t.Status, t.Address)
+	return fmt.Sprintf(`
+========== RECEIPT ==========
+Transaction No: %s
+Date: %s
+Status: %v
+
+Customer: %s
+Meter Number: %s
+Address: %s
+Meter Type: %v
+
+Amount Paid: ₦%.2f
+Units Purchased: %.2f kWh
+Token: %s
+
+Payment Method: %s
+=============================
+`,
+		t.TransactionNo,
+		t.TransactionDate.Format("Jan 2, 2006 15:04:05"),
+		t.Status,
+		t.CustomerName,
+		t.MeterNumber,
+		t.Address,
+		t.MeterType,
+		t.Amount,
+		t.UnitsPurchased,
+		t.Token,
+		t.PaymentMethod,
+	)
 }
 
 func (ts TransactionStatus) String() string {

@@ -32,7 +32,7 @@ func (p *PostpaidMeter) GetBalance() float64 {
 	return p.DebtAmount
 }
 
-func (p *PostpaidMeter) Addunits() (float64, error) {
+func (p *PostpaidMeter) AddUnits(uints float64) (float64, error) {
 	fmt.Println("You don't have implementation for that")
 	return 0, nil
 }
@@ -58,12 +58,12 @@ func (p *PostpaidMeter) PayBill(amount float64) (float64, error) {
 	return p.DebtAmount, nil
 }
 
-func (p *PostpaidMeter) CalculateCost(amount float64) (float64, error) {
+func (p *PostpaidMeter) CalculateUnits(amount float64) (float64, error) {
 	if amount <= 0 {
 		return 0, fmt.Errorf("amount must be greater than zero")
 	}
 	return amount / p.Tariff, nil
 }
-func (p *PostpaidMeter) GetCustomerAdress() string {
+func (p *PostpaidMeter) GetCustomerAddress() string {
 	return p.Address
 }

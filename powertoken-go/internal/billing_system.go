@@ -28,12 +28,22 @@ func (b *BillingSystem) ProcessPayment(meterNumber string, amount float64, payme
 	if amount <= 0 {
 		return &Transaction{}, fmt.Errorf("Amount cannot be zero")
 	}
+	if amount < 100 {
+		return nil, fmt.Errorf("minimum payment is ₦100, got ₦%.2f", amount)
+	}
 	for _, meter := range b.meters {
 		if meter.GetMeterNumber() == meterNumber {
 			new_transaction, err := NewTransaction(meter, amount, paymentMethod)
 			if err != nil {
 				return &Transaction{}, err
 			}
+			unit, err := meter.AddUnits(new_transaction.UnitsPurchased)
+			fmt.Sprintf("[%s]", unit)
+			if err != nil {
+				return &Transaction{}, err
+			}
+			new_transaction.Status = Successfull
+			b.transactions = append(b.transactions, *new_transaction)
 			return new_transaction, nil
 		}
 	}
@@ -51,8 +61,9 @@ func (b *BillingSystem) ListTransactions() error {
 	if len(b.transactions) <= 0 {
 		return fmt.Errorf("Zero transactions")
 	}
-	for _, transaction := range b.transactions {
-		fmt.Println(transaction)
+	for i, transaction := range b.transactions {
+		fmt.Printf("\n--- Transaction %d ---\n", i+1)
+		fmt.Print(transaction.String())
 	}
 	return nil
 }
