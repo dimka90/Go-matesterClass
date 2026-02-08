@@ -31,7 +31,7 @@ func (p *PrepaidMeter) GetMeterType() MeterType {
 func (p *PrepaidMeter) GetBalance() float64 {
 	return p.Balance
 }
-func (p *PrepaidMeter) Addunits(units float64) error {
+func (p *PrepaidMeter) AddUnits(units float64) error {
 	if units <= 0 {
 		return fmt.Errorf("units must be greater than zero")
 	}
